@@ -1,7 +1,13 @@
 import requests
 import time
+import json
 
-def getCreationMetadataByUsername(username, createdOnlyFlag=True):
+# global var, add to main script
+# raw API
+url = "https://en.wikipedia.org/w/api.php"
+HEADERS = { "User-Agent": "Wikifirst/1.0 (s1312004@u-aizu.ac.jp)" }
+
+def getCreationByUsername(username, createdOnlyFlag=True):
     """
     Fetches the titles and initial revision ID for all articles created by username.
     :param
@@ -12,12 +18,6 @@ def getCreationMetadataByUsername(username, createdOnlyFlag=True):
         list of tuples (title, revID) fetched
     """
     creations = []
-    # raw API
-    url = "https://en.wikipedia.org/w/api.php"
-
-    HEADERS = {
-        "User-Agent": "Wikifirst/1.0 (s1312004@u-aizu.ac.jp)"
-    }
     PARAMS = {
         "action": "query",
         "format": "json",
@@ -50,7 +50,7 @@ def getCreationMetadataByUsername(username, createdOnlyFlag=True):
             else:
                 break
 
-            time.sleep(1)
+            time.sleep(1) # avoid crash (429)
             
         except Exception as e:
             print(f"Some error: {e}")
@@ -59,12 +59,19 @@ def getCreationMetadataByUsername(username, createdOnlyFlag=True):
     print(f"Found {len(creations)} created articles by {username}.")
     print("-----")
     print(creations[:5])
+
+    print("Saving creations to JSON.")
+    output = f"{username}_creations.json"
+    with open(output, "w", encoding="utf-8") as f:
+        json.dump(creations, f, indent=4, ensure_ascii=False)
+    print(f"Saved {output}.")
+
     return creations
 
 # # random test
 # def main():
-#     getCreationMetadataByUsername("Europe22", createdOnlyFlag=True)
-#     getCreationMetadataByUsername("Ilwilson", createdOnlyFlag=True)
+#     getCreationByUsername("Europe22", createdOnlyFlag=True)
+#     getCreationByUsername("Ilwilson", createdOnlyFlag=True)
 
 # if __name__ == "__main__":
 #     main()
