@@ -2,14 +2,14 @@ import requests
 from bs4 import BeautifulSoup
 import time
 
-from cleanRawHTML import cleanRawHTML
+from .cleanRawHTML import cleanRawHTML
 
 # global var, add to main script
 # raw API
 url = "https://en.wikipedia.org/w/api.php"
 HEADERS = { "User-Agent": "Wikifirst/1.0 (s1312004@u-aizu.ac.jp)" }
 
-def fetchOldText(revID):
+def fetchText(revID):
     """
     Fetches text from a given revision ID.
     :param
@@ -35,8 +35,8 @@ def fetchOldText(revID):
     
 # random test
 def main():
-    Wilson_revID = 130042734
-    testText = fetchOldText(Wilson_revID)
+    song_revID = 1179834754
+    testText = fetchText(song_revID)
     print(testText)
 
 if __name__ == "__main__":

@@ -1,9 +1,13 @@
 from .cleanRawHTML import cleanRawHTML
-from .fetchOldText import fetchOldText
+from .fetchText import fetchText
 from .getCreationByUsername import getCreationByUsername
+from .countToken import countToken
+from .getDomain import getDomain
 
 __all__ = [
     "cleanRawHTML",
-    "fetchOldText",
-    "getCreationByUsername"
+    "fetchText",
+    "getCreationByUsername",
+    "countToken",
+    "getDomain"
 ]

@@ -26,9 +26,9 @@ def cleanRawHTML(raw_html):
     text_blocks = []
 
     # ignores navigation bars, sidebars, and hidden metadata
-    ignore_tags = ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'dl']
+    tags = ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'dl']
     
-    for element in soup.find_all(ignore_tags):
+    for element in soup.find_all(tags):
         text = element.get_text(strip=True, separator=" ")
         text = re.sub(r'\s+', ' ', text)
 
@@ -38,6 +38,9 @@ def cleanRawHTML(raw_html):
         # stop at footers
         if element.name in ['h2', 'h3'] and text in ['External links', 'References', 'See also', 'Notes', 'Bibliography']:
             break
+
+        if element.name.startswith("h"):
+            continue #ignore headers titles
             
         text_blocks.append(text)
     return "\n\n".join(text_blocks)

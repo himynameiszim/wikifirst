@@ -60,11 +60,11 @@ def getCreationByUsername(username, createdOnlyFlag=True):
     print("-----")
     print(creations[:5])
 
-    print("Saving creations to JSON.")
-    output = f"{username}_creations.json"
-    with open(output, "w", encoding="utf-8") as f:
-        json.dump(creations, f, indent=4, ensure_ascii=False)
-    print(f"Saved {output}.")
+    # print("Saving creations to JSON.")
+    # output = f"{username}_creations.json"
+    # with open(output, "w", encoding="utf-8") as f:
+    #     json.dump(creations, f, indent=4, ensure_ascii=False)
+    # print(f"Saved {output}.")
 
     return creations
 
