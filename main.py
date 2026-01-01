@@ -52,10 +52,10 @@ def main():
             # only fetch if text param not present
             if "text" not in entry:
                 revid = entry.get("revid")
-                raw_text = fetchText(revid)
-                entry["text"] = raw_text
-                entry["token_count"] = countToken(raw_text)
-                topics = getDomain(raw_text)
+                title = entry.get("title")
+                entry["text"] = fetchText(revid)
+                entry["token_count"] = countToken(entry.get("text", ""))
+                topics = getDomain(title)
                 if topics:
                     entry["domain"] = topics
                 else:
