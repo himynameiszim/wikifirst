@@ -18,6 +18,7 @@ def getCreationByUsername(username, createdOnlyFlag=True):
         list of tuples (title, revID) fetched
     """
     creations = []
+    seen_titles = set()
     PARAMS = {
         "action": "query",
         "format": "json",
@@ -39,11 +40,15 @@ def getCreationByUsername(username, createdOnlyFlag=True):
 
             if "query" in response and "usercontribs" in response["query"]:
                 for contrib in response["query"]["usercontribs"]:
-                    creations.append({
-                        "title": contrib["title"],
-                        "revid": contrib["revid"], # points to the text at creation
-                        "date": contrib["timestamp"]
-                    })
+                    title = contrib["title"].lower().strip()
+                    # title = title.lower().strip()
+                    if title not in seen_titles:
+                        seen_titles.add(title)
+                        creations.append({
+                            "title": contrib["title"],
+                            "revid": contrib["revid"], # points to the text at creation
+                            "date": contrib["timestamp"]
+                        })
             
             if "continue" in response:
                 PARAMS.update(response["continue"])

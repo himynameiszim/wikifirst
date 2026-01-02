@@ -3,9 +3,9 @@ import json
 import os
 import time
 
-from modules import getCreationByUsername, fetchText, countToken, getDomain
+from modules import getCreationByUsername, fetchText, countToken, getDomain, getCategory
 
-INPUT_CSV = "userTest101.csv"
+INPUT_CSV = "userTest.csv"
 OUTPUT_DIR = "output"
 def main():
     if not os.path.exists(OUTPUT_DIR):
@@ -55,7 +55,7 @@ def main():
                 title = entry.get("title")
                 entry["text"] = fetchText(revid)
                 entry["token_count"] = countToken(entry.get("text", ""))
-                topics = getDomain(title)
+                topics = getCategory(title)
                 if topics:
                     entry["domain"] = topics
                 else:
