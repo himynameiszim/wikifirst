@@ -33,11 +33,11 @@ def fetchText(revID):
     except Exception as e:
         return f"Error fetching text: {e}"
     
-# random test
-def main():
-    song_revID = 1179834754
-    testText = fetchText(song_revID)
-    print(testText)
+# # random test
+# def main():
+#     song_revID = 1179834754
+#     testText = fetchText(song_revID)
+#     print(testText)
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()

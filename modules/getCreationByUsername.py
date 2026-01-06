@@ -18,6 +18,7 @@ def getCreationByUsername(username, createdOnlyFlag=True):
         list of tuples (title, revID) fetched
     """
     creations = []
+    revID_list = []
     seen_titles = set()
     PARAMS = {
         "action": "query",
@@ -49,13 +50,13 @@ def getCreationByUsername(username, createdOnlyFlag=True):
                             "revid": contrib["revid"], # points to the text at creation
                             "date": contrib["timestamp"]
                         })
-            
+                        revID_list.append(contrib["revid"])
             if "continue" in response:
                 PARAMS.update(response["continue"])
             else:
                 break
 
-            time.sleep(1) # avoid crash (429)
+            time.sleep(0.5) # avoid crash (429)
             
         except Exception as e:
             print(f"Some error: {e}")
@@ -71,7 +72,7 @@ def getCreationByUsername(username, createdOnlyFlag=True):
     #     json.dump(creations, f, indent=4, ensure_ascii=False)
     # print(f"Saved {output}.")
 
-    return creations
+    return creations, revID_list
 
 # # random test
 # def main():

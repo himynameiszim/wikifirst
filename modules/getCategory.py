@@ -32,9 +32,7 @@ def get_article_categories(title):
         print(f"Error fetching categories: {e}")
         return []
 
-# --- 2. THE UPDATED OLLAMA FUNCTION ---
-
-def map_categories_to_main_topic(specific_categories):
+def getCategory(specific_categories):
     """
     Uses Ollama to map a list of specific Wikipedia categories to top-level domains.
     """
@@ -73,7 +71,7 @@ def map_categories_to_main_topic(specific_categories):
     """
 
     try:
-        response = ollama.chat(model='phi3', messages=[
+        response = ollama.chat(model='gemma2:2b', messages=[
             {
                 'role': 'system',
                 'content': system_instruction,

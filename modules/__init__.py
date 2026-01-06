@@ -4,6 +4,7 @@ from .getCreationByUsername import getCreationByUsername
 from .countToken import countToken
 from .getDomain import getDomain
 from .getCategory import getCategory
+from .fetchBatchText import fetchBatchText
 
 __all__ = [
     "cleanRawHTML",
@@ -11,5 +12,7 @@ __all__ = [
     "getCreationByUsername",
     "countToken",
     "getDomain",
-    "getCategory"
+    "getCategory",
+    "fetchBatchText",
+
 ]

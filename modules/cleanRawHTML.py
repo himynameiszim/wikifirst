@@ -1,5 +1,7 @@
 from bs4 import BeautifulSoup
 import re
+import json
+import os
 
 def cleanRawHTML(raw_html):
     """
@@ -44,3 +46,24 @@ def cleanRawHTML(raw_html):
             
         text_blocks.append(text)
     return "\n\n".join(text_blocks)
+
+# clean output
+def main():
+    input_dir = r"D:\wikifirst\wikifirst\output"
+    output_dir = r"D:\wikifirst\wikifirst\cleaned_output"
+
+    # ensure output directory exists
+    os.makedirs(output_dir, exist_ok=True)
+
+    for filename in os.listdir(input_dir):
+        with open(os.path.join(input_dir, filename), 'r', encoding='utf-8') as f:
+            data = json.load(f)
+
+        for entry in data:
+            entry["text"] = cleanRawHTML(entry["text"])
+
+        save_path = os.path.join(output_dir, filename)
+        with open(save_path, 'w', encoding='utf-8') as f_out:
+            json.dump(data, f_out, indent=4, ensure_ascii=False)
+
+main()
